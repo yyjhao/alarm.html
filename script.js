@@ -300,6 +300,7 @@ document.addEventListener("DOMContentLoaded", function(){
 		}else{
 			myPlayer.loadVideoById(results[1]);
 			myPlayer.pauseVideo();
+			storage.set('youtube-id',results[1]);
 		}
 	};
 
