@@ -1,10 +1,10 @@
 var storage = {
 	prefix: 'yyjhao.alarm.',
 	get: function(name){
-		return localStorage[prefix + name];
+		return localStorage[this.prefix + name];
 	},
 	set: function(name, val){
-		localStorage[prefix + name] = val;
+		localStorage[this.prefix + name] = val;
 	}
 };
 
