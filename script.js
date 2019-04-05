@@ -1,3 +1,10 @@
+//	$('#audioLoader').on('change', );
+// https://www.w3schools.com/tags/ref_av_dom.asp
+// https://satejkumar.blogspot.com/2014/10/handling-errors-while-using-html5-audio.html
+// about:preferences#privacy
+// https://stackoverflow.com/questions/38265242/play-audio-local-file-with-html
+// https://stackoverflow.com/questions/4687723/how-to-convert-minutes-to-hours-minutes-and-add-various-time-values-together-usi
+
 var storage = {
 	prefix: 'yyjhao.alarm.',
 	get: function(name){
@@ -31,6 +38,10 @@ function onYouTubePlayerAPIReady() {
 		}
 	});
 }
+
+var audio;
+var audioLoaded = '';
+
 
 //setup browser-specific stuff.
 var isTouch = !!('ontouchstart' in window);
@@ -67,8 +78,12 @@ var globalTimer = {
 		}
 	},
 	alarm: function(){
-		myPlayer.seekTo(0);
-		myPlayer.playVideo();
+		if(audioLoaded != '') {
+			audio.play();
+		} else {
+			myPlayer.seekTo(0);
+			myPlayer.playVideo();
+		}
 	}
 };
 
@@ -290,6 +305,27 @@ var bindClick = function(elm, func){
 };
 
 document.addEventListener("DOMContentLoaded", function(){
+		
+	audio = document.getElementById("myAudio");
+	var audioLoader = document.querySelector("#audioLoader");
+	
+	audioLoader.addEventListener("change", function(e) {
+	  var target = e.currentTarget;
+	  var file = target.files[0];
+	  var reader = new FileReader();
+	  
+	  console.log(audio[0]);
+	   if (target.files && file) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				audioLoaded = e.target.result;
+				audio.autoplay = false;
+				audio.src = audioLoaded;
+			}
+			reader.readAsDataURL(file);
+		}
+	}); 
+	
 	document.querySelector('#setYoutube').onclick = function(){
 		var path = document.querySelector('#youtubepath').value;
 		var regexS = "[\\?&]v=([^&#]*)";
@@ -315,7 +351,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	});
 
 	var topArea = document.querySelector('#top-area'),
-		settingBut = document.querySelector('.top-button');
+		settingBut = document.querySelector('.top-button'),
+		setupBut = document.querySelector('.setup-button');
 
 	bindClick(settingBut,function(){
 		topArea.classList.toggle('shown');
@@ -324,6 +361,21 @@ document.addEventListener("DOMContentLoaded", function(){
 		}else{
 			settingBut.innerHTML = 'Settings';
 		}
+	});
+	
+	bindClick(setupBut,function(){var i;
+		var myTime = 7*60+30;
+		for (i = 0; i < 15; i++) {
+			var hours = Math.floor( myTime / 60);          
+			var minutes = myTime % 60;
+			if(minutes < 10) minutes = "0" + minutes;
+			var ins = new instance();
+			ins.setTime(hours+":"+minutes);
+			list.insertBefore(ins.dom,addBut);
+			ins.timeLabel.focus();
+			ins.timeLabel.blur();
+			myTime+=5;
+		} 
 	});
 
 	if(isTouch){

@@ -4,7 +4,7 @@ This is a simple demo/concept of an alarm clock implemented using HTML5 technolo
 
 It supports alarm clock using flexible phrases like "in a minutes", "after 10 minutes", "13:14" or "8:20pm".
 
-When timed out, it plays a song from Youtube using Youtube's JavaScript API, and while there's an option to set a local file, it is not implemented :P
+When timed out, it plays a song from Youtube using Youtube's JavaScript API, and while there's an option to set a local file, it is (partially) implemented :P
 
 Also, only the song used for the alarm is remembered, and the app doesn't remember the alarms you set after reload.
 
