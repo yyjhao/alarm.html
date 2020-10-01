@@ -1,4 +1,4 @@
-#Alarm.html
+#Alarm
 
 This is a simple demo/concept of an alarm clock implemented using HTML5 technology.
 
